@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Form</title>
+  <style>
+    .container {
+      border: 1px solid #ccc;
+      padding: 20px;
+      background-color: #997a7a; color: white;
+      width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    label{
+            width: 150px;
+            display: inline-block;
+        }
+    
+    body{
+          text-align: center;
+          font-size: large;
+          padding-top: 5%;     
+      }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Personal Information</h1>
+    <form id="form">
+        <br><label for="name"><b>Name:</b></label>
+        <input type="text" id="name" style="font-size: large; align:center">
+        </br>
+
+        <br><label for="birthday"><b>Birthday:</b></label>
+        <input type="date" id="birthday" name="birthday" style="font-size: large; align:center">
+        </br>
+        <br><label for="age" ><b>Age: </b></label>
+        <input type="number" id="age" name="age" style="font-size:large; align:center">
+        </br>
+
+        <br><label for="degree"><b>Degree</b></label>
+        <input type="text" id="degree" name="degree" style="font-size:large; align:center">
+        </br>
+
+        <br><label for="phone"><b>Phone No:</b></label>
+        <input type="text" id="phone" name="phone" style="font-size:large; align:center">
+        </br>
+
+        <br>
+        <button type="button" onclick="getInput()" style="font-size:large; align:center"><b>Submit</b></button>
+        </br>
+   </form>
+  </div>
+  <script>
+    function getInput() {
+            var formData = {};
+            var formElements = document.getElementById("form").elements;
+
+            for (var i = 0; i < formElements.length; i++) {
+                var element = formElements[i];
+
+                if (element.type !== "button") {
+                    formData[element.name] = element.value;
+                }
+            }
+
+            var jsonData = JSON.stringify(formData, null, 2);
+            
+            
+            var blob = new Blob([jsonData], { type: "application/json" });
+
+            
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "user_input.json";
+
+            
+            document.body.appendChild(a);
+            a.click();
+
+            // Removing the anchor from the body
+            document.body.removeChild(a);
+        }
+  </script>
+</body>
+
+</html>
